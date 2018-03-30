@@ -3,12 +3,12 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [my-exercise.us-state :as us-state]))
 
-(defn header [_]
+(defn header []
   [:head
    [:meta {:charset "UTF-8"}]
    [:meta {:name "viewport"
            :content "width=device-width, initial-scale=1.0, maximum-scale=1.0"}]
-   [:title "Find my next election"]
+   [:title "Find My Elections"]
    [:link {:rel "stylesheet" :href "default.css"}]])
 
 (defn getting-started [_]
@@ -98,7 +98,7 @@
 
 (defn address-form [_]
   [:div {:class "address-form"}
-   [:h1 "Find my next election"]
+   [:h1 "Find My Next Election"]
    [:form {:action "/search" :method "post"}
     (anti-forgery-field)
     [:p "Enter the address where you are registered to vote"]
@@ -128,11 +128,18 @@
               :type "text"
               :name "zip"
               :size "10"}]]
+   [:div
+    [:label {:for "county"} "County:"]
+    [:input {:id "county-field"
+             :type "text"
+             :name "county"}]]
     [:div.button
      [:button {:type "submit"} "Search"]]]])
 
 (defn page [request]
+  "Render the main page."
+      "TO DOs: Add client-side validation for required fields, more descriptive text."
   (html5
-   (header request)
-   (instructions request)
+   (header)
+   (comment (instructions request))
    (address-form request)))
